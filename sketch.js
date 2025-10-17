@@ -80,11 +80,13 @@ function draw() {
 
     let myValueCol0 = data["column0"];
     let mappedValuesCol0 = map(myValueCol0, minValueCol0, maxValueCol0, 1, itemSize);
+    let mappedRotationSpeedCol0 = map(myValueCol0, minValueCol0, maxValueCol0, 35, 1);
 
     let myValueCol1 = data["column1"];
     let mappedStrokeCol1 = map(myValueCol1, minValueCol1, maxValueCol1, 0, 4);
     let mappedReverseStrokeCol2 = map(myValueCol1, maxValueCol1, minValueCol1, 0, 4);
     let mappedValuesCol1 = map(myValueCol1, minValueCol1, maxValueCol1, 0, itemSize);
+    let mappedRotationSpeedCol1 = map(myValueCol1, minValueCol1, maxValueCol1, 1, 50);
 
     let myValueCol2 = data["column2"];
     let colorMappedCol2 = map(myValueCol2, minValueCol2, maxValueCol2, 0, 1);
@@ -116,7 +118,7 @@ function draw() {
     strokeWeight(mappedStrokeCol1);
     stroke(mappedColorCol2);
     translate(xPos, yPos);
-    rotate(mappedRotationCol3);
+    rotate(mappedRotationCol3 - frameCount * mappedRotationSpeedCol0);
     rect(0, 0, mappedValuesCol0, mappedValuesCol0);
     pop();
 
@@ -125,7 +127,7 @@ function draw() {
     strokeWeight(mappedStrokeCol1);
     stroke(mappedShadowColorCol2);
     translate(xPos, yPos);
-    rotate(mappedRotationCol3);
+    rotate(mappedRotationCol3 + frameCount);
     rect(0, 0, mappedValuesCol0 + mappedStrokeCol1, mappedValuesCol0 + mappedStrokeCol1);
     pop();
 
@@ -134,7 +136,7 @@ function draw() {
     strokeWeight(mappedReverseStrokeCol2);
     stroke(mappedShadowColorCol2);
     translate(xPos, yPos);
-    rotate(mappedReverseRotationCol3);
+    rotate(mappedReverseRotationCol3 + frameCount);
     rect(0, 0, mappedValuesCol4+20, mappedValuesCol4);
     pop();
 
@@ -143,6 +145,7 @@ function draw() {
     strokeWeight(mappedReverseStrokeCol2);
     stroke(mappedColorCol2);
     translate(xPos, yPos);
+    rotate(mappedRotationCol4 - frameCount);
     arc(0, 0, mappedValuesCol4, mappedValuesCol4, mappedReverseRotationCol3, mappedRotationCol3);
     pop();
 
@@ -151,6 +154,7 @@ function draw() {
     strokeWeight(mappedStrokeCol2);
     stroke(mappedShadowColorCol2);
     translate(xPos, yPos);
+    rotate(mappedRotationCol4 + frameCount);
     arc(0, 0, mappedValuesCol3, mappedValuesCol3, mappedRotationCol4, mappedReverseRotationCol4);
     pop();
 
@@ -159,7 +163,7 @@ function draw() {
     stroke(mappedColorCol2);
     strokeWeight(mappedStrokeCol4);
     translate(xPos, yPos);
-    rotate(mappedRotationCol4);
+    rotate(mappedRotationCol4 + frameCount * mappedRotationSpeedCol1);
     line(0, 0, mappedValuesCol0, mappedValuesCol1);
     pop();
 
@@ -168,7 +172,7 @@ function draw() {
     stroke(mappedShadowColorCol2);
     strokeWeight(mappedStrokeCol1);
     translate(xPos, yPos);
-    rotate(mappedRotationCol3);
+    rotate(mappedRotationCol3 - frameCount);
     line(0, 0, mappedValuesCol3, mappedValuesCol4);
     pop();
 
