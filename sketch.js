@@ -1,8 +1,8 @@
 //layout 
 let table; 
 let outerPadding = 70;
-let padding = 5; 
-let itemSize = 30;
+let padding = 10; 
+let itemSize = 31;
 let cols;
 let rows;
 let totalHeight;
@@ -63,7 +63,7 @@ function setup() {
   fucsiaFluo = color(255, 20, 147);
   verdeFluoTrasparente = color(57, 255, 20, 60);
   fucsiaFluoTrasparente = color(255, 20, 147, 60);
-  
+    
   rectMode(CENTER);
   angleMode(DEGREES);
 
@@ -84,10 +84,12 @@ function draw() {
     let myValueCol1 = data["column1"];
     let mappedStrokeCol1 = map(myValueCol1, minValueCol1, maxValueCol1, 0, 4);
     let mappedReverseStrokeCol2 = map(myValueCol1, maxValueCol1, minValueCol1, 0, 4);
+    let mappedValuesCol1 = map(myValueCol1, minValueCol1, maxValueCol1, 0, itemSize);
 
     let myValueCol2 = data["column2"];
-    let colorMapped = map(myValueCol2, minValueCol2, maxValueCol2, 0, 1);
-    let mappedColorCol2 = lerpColor(verdeFluo, fucsiaFluo, colorMapped);
+    let colorMappedCol2 = map(myValueCol2, minValueCol2, maxValueCol2, 0, 1);
+    let mappedColorCol2 = lerpColor(verdeFluo, fucsiaFluo, colorMappedCol2);
+    //let mappedReverseColorCol2 = lerpColor(fucsiaFluo, verdeFluo, colorMappedCol2);
     let shadowColorMappedCol2 = map(myValueCol2, minValueCol2, maxValueCol2, 0, 1);
     let mappedShadowColorCol2 = lerpColor(verdeFluoTrasparente, fucsiaFluoTrasparente, shadowColorMappedCol2);
     let mappedStrokeCol2 = map(myValueCol2, minValueCol2, maxValueCol2, 0, 6);
@@ -101,6 +103,8 @@ function draw() {
     let mappedValuesCol4 = map(myValueCol4, minValueCol4, maxValueCol4, 0, itemSize);
     let mappedRotationCol4 = map(myValueCol4, minValueCol4, maxValueCol4, 0, 360);
     let mappedReverseRotationCol4 = map(myValueCol4, minValueCol4, maxValueCol4, 360, 0);
+    let mappedStrokeCol4 = map(myValueCol4, minValueCol4, maxValueCol4, 0, 4);
+    
 
     noFill();  
     
@@ -116,12 +120,21 @@ function draw() {
     rect(0, 0, mappedValuesCol0, mappedValuesCol0);
     pop();
 
+    //quadrati fluo trasparenti
+    push();
+    strokeWeight(mappedStrokeCol1);
+    stroke(mappedShadowColorCol2);
+    translate(xPos, yPos);
+    rotate(mappedRotationCol3);
+    rect(0, 0, mappedValuesCol0 + mappedStrokeCol1, mappedValuesCol0 + mappedStrokeCol1);
+    pop();
+
     //rettangoli fluo trasparenti
     push();
     strokeWeight(mappedReverseStrokeCol2);
     stroke(mappedShadowColorCol2);
     translate(xPos, yPos);
-    rotate(mappedRotationCol3);
+    rotate(mappedReverseRotationCol3);
     rect(0, 0, mappedValuesCol4+20, mappedValuesCol4);
     pop();
 
@@ -139,6 +152,24 @@ function draw() {
     stroke(mappedShadowColorCol2);
     translate(xPos, yPos);
     arc(0, 0, mappedValuesCol3, mappedValuesCol3, mappedRotationCol4, mappedReverseRotationCol4);
+    pop();
+
+    //linee fluo
+    push();
+    stroke(mappedColorCol2);
+    strokeWeight(mappedStrokeCol4);
+    translate(xPos, yPos);
+    rotate(mappedRotationCol4);
+    line(0, 0, mappedValuesCol0, mappedValuesCol1);
+    pop();
+
+    //linee fluo trasparenti
+    push();
+    stroke(mappedShadowColorCol2);
+    strokeWeight(mappedStrokeCol1);
+    translate(xPos, yPos);
+    rotate(mappedRotationCol3);
+    line(0, 0, mappedValuesCol3, mappedValuesCol4);
     pop();
 
     colCount++;
